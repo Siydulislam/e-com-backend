@@ -17,16 +17,12 @@ module.exports.signUp = async (req, res) => {
 
     const token = user.generateJWT();
 
-    try {
-        const result = await user.save();
-        return res.status(201).send({
-            message: 'Registration Successful!',
-            token: token,
-            user: _.pick(result, ['_id', 'name', 'email'])
-        })
-    } catch (error) {
-        return res.status(500).send('Something went wrong!');
-    }
+    const result = await user.save();
+    return res.status(201).send({
+        message: 'Registration Successful!',
+        token: token,
+        user: _.pick(result, ['_id', 'name', 'email'])
+    })
 }
 
 module.exports.signIn = async (req, res) => {
