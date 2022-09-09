@@ -5,6 +5,6 @@ const authorize = require('../middlewares/authorize');
 
 router.route('/')
     .post([authorize, admin], createCategory)
-    .post(getCategories);
+    .get(getCategories);
 
 module.exports = router;
