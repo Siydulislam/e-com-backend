@@ -33,7 +33,8 @@ module.exports.createProduct = async (req, res) => {
 }
 
 module.exports.getProducts = async (req, res) => {
-
+    const products = await Product.find().select({ photo: 0 });
+    return res.status(200).send(products);
 }
 
 module.exports.getProductById = async (req, res) => {
