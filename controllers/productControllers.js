@@ -37,7 +37,7 @@ module.exports.getProducts = async (req, res) => {
     let sortBy = req.query.sortBy ? req.query.sortBy : '_id';
     let limit = req.query.limit ? parseInt(req.query.limit) : 10;
     const products = await Product.find()
-        .select({ photo: 0, description: 0 })
+        .select({ photo: 0 })
         .sort({ [sortBy]: order })
         .limit(limit)
         .populate('category', 'name');
@@ -45,7 +45,20 @@ module.exports.getProducts = async (req, res) => {
 }
 
 module.exports.getProductById = async (req, res) => {
+    const productId = req.params.id;
+    const product = await Product.findById(productId)
+        .select({ photo: 0 })
+        .populate('category', 'name');
+    if (!product) res.status(404).send('Product not found!');
+    return res.status(200).send(product);
+}
 
+module.exports.getPhoto = async (req, res) => {
+    const productId = req.params.id;
+    const product = await Product.findById(productId)
+        .select({ photo: 1, _id: 0 }); // .select('photo -_id')
+    res.set('Content-Type', product.photo.contentType);
+    return res.status(200).send(product.photo.data);
 }
 
 module.exports.updateProductById = async (req, res) => {
