@@ -9,5 +9,5 @@ module.exports = (app) => {
     app.use('/api/category', categoryRouter);
     app.use('/api/product', productRouter);
     app.use('/api/cart', cartRouter);
-    app.use('/api/profile', productRouter);
+    app.use('/api/profile', profileRouter);
 }
