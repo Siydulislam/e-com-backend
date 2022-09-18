@@ -1,4 +1,4 @@
-const _ = require('../models/profile');
+const _ = require('lodash');
 const { Profile } = require('../models/profile');
 
 module.exports.getProfile = async (req, res) => {
@@ -18,4 +18,5 @@ module.exports.setProfile = async (req, res) => {
         profile = new Profile(userProfile);
         await profile.save();
     }
+    return res.status(200).send("Updated Successfully!");
 }
